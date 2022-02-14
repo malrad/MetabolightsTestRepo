@@ -1,5 +1,7 @@
 package com.ebi.metabolights.study.entity;
 
+import java.sql.Blob;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,7 +31,9 @@ public class File {
 	private Long  fileSize;
 
 	@Column
-	private String filePath;
+	@Lob
+	@JsonIgnore
+	private byte[] file;
 	
 	@Column
 	private Integer studyId;
@@ -86,12 +91,12 @@ public class File {
 		this.study = study;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public byte[] getFile() {
+		return file;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 
 	@Override

@@ -10,12 +10,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ebi.metabolights.study.entity.File;
-import com.ebi.metabolights.study.exception.ExceptionResponse;
 import com.ebi.metabolights.study.exception.StudyExceptionResponse;
 import com.ebi.metabolights.study.repository.FileRepository;
 
@@ -34,18 +32,18 @@ public class FileUploadServiceImpl implements FileUploadService {
 			if (file.isEmpty()) {
 				throw new StudyExceptionResponse("Failed to store empty file.");
 			}
-			Path destinationFile = Paths.get(location).resolve(Paths.get(file.getOriginalFilename())).normalize()
+			/*Path destinationFile = Paths.get(location).resolve(Paths.get(file.getOriginalFilename())).normalize()
 					.toAbsolutePath();
 			if (!destinationFile.getParent().equals(Paths.get(location).toAbsolutePath())) {
 				// This is a security check
 				throw new StudyExceptionResponse("Cannot store file outside current directory.");
-			}
-			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-				fileOj.setFileSize(Files.size(destinationFile)/1024);
-				fileOj.setFilePath(location);
-			}
-		} catch (IOException e) {
+			}*/
+			
+				//InputStream inputStream = file.getInputStream();
+				//Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+				fileOj.setFileSize(file.getSize());
+				fileOj.setFile(file.getBytes());
+		}catch (IOException e) {
 			throw new StudyExceptionResponse("Failed to store file.", e);
 		}
 
