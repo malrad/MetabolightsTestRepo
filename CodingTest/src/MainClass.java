@@ -7,18 +7,32 @@ import java.util.List;
 public class MainClass {
 
 	public static void main(String[] args) throws IOException {
+	
+		Test test=new Test();
+		test.machineCount();
+	}	
+		
+}
+
+class Test{
+	
+	public void machineCount() {	
 		
 		String input = "[[1,7],[1,9],[2,11],[2,3],[2,7],[7,8],[7,8]]";
 		
 		System.out.println("Please enter set of processes in below format: ");
 		System.out.println(input + "\nInput:");
-		
 		// Enter data using BufferReader
         BufferedReader reader = new BufferedReader(
             new InputStreamReader(System.in));
  
         // Reading data using readLine
-        input = reader.readLine();
+        try {
+			input = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(input.startsWith("[[") && input.endsWith("]]") && input.length() > 4) {
 		
@@ -36,16 +50,15 @@ public class MainClass {
 		
 		assignProcessToMachine(machines, processList);
 		
-		System.out.println("Final machinesAndProcessed: "+ machines);
+		System.out.println("Final machinesAndProcess: "+ machines);
 		
 		System.out.println("Output:\nTotal Machines Required: "+machines.size());
 		} else {
 			System.out.println("Invalid input.");
 		}
-
 	}
 	
-	static List<Process> createProcessList (List<String> processStrList){
+	private List<Process> createProcessList (List<String> processStrList){
 		List<Process> createdProcessList = new ArrayList<>();
 		processStrList.forEach(eachStr -> {
 			Process prc = new Process();
@@ -59,7 +72,7 @@ public class MainClass {
 		return createdProcessList;
 	}
 	
-	static void assignProcessToMachine (List<Machine> machines, List<Process> processList) {
+	private void assignProcessToMachine (List<Machine> machines, List<Process> processList) {
 		processList.forEach(prc -> {
 			boolean isMachinesAccommodable = false;
 			for(Machine machine : machines) {
@@ -81,11 +94,12 @@ public class MainClass {
 	
 	
 	
-	static boolean canMachineAccomodateCurrentPrc (List<Process> machine, Process prc) {
+	private boolean canMachineAccomodateCurrentPrc (List<Process> machine, Process prc) {
 		if(machine.size() == 0 || (machine.size() > 0 &&  machine.get(machine.size()-1).endTime < prc.startTime)) {
 			return true;
 		}
 		return false;
+	
 	}
 	
 }
