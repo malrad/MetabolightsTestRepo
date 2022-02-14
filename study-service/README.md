@@ -1,4 +1,4 @@
-A study service is an application to enable users to create studies via an API using Spring Boot and mysql.
+A study service is an application to enable users to create studies via an API using Spring Boot and H2.
 
 Study Service
 
@@ -28,7 +28,14 @@ Note: Files can only be uploaded for a pre existing study.
 
 
 How to run?
-Run as java application
+Run as java application in IDE.
 
-Note: For sample request & response payload please refer swagger link.
-http://localhost:8080/swagger-ui/
+Using command prompt:
+
+To build JAR: mvn clean install
+
+To run Application: java -jar study-service-1.0.0.jar
+
+To launch application swagger (in browser): http://localhost:8080/swagger-ui/
+
+
